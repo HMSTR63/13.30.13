@@ -6,7 +6,7 @@
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 01:18:52 by sojammal          #+#    #+#             */
-/*   Updated: 2024/11/25 23:20:04 by sojammal         ###   ########.fr       */
+/*   Updated: 2024/11/26 07:13:26 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	ft_format(va_list args, char c)
 		size += ft_putptr((size_t)va_arg(args, void *));
 	else if (c == 'u')
 		size += ft_putunbr(va_arg(args, unsigned int));
+	else
+		size = ft_putchar(c);
 	return (size);
 }
 

@@ -84,5 +84,5 @@
 #include <stdio.h>
 int main()
 {
-	ft_printf("%\n");
+	ft_printf("%%r\n");
 }
