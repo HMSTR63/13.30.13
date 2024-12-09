@@ -6,7 +6,7 @@
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:20:07 by sojammal          #+#    #+#             */
-/*   Updated: 2024/12/09 11:08:23 by sojammal         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:46:16 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 }
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s)
+	while (s && *s)
 	{
 		if (*s == (char)c)
 			return ((char *)s);

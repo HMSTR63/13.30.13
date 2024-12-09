@@ -6,7 +6,7 @@
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:16:51 by sojammal          #+#    #+#             */
-/*   Updated: 2024/12/09 11:02:32 by sojammal         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:36:40 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <limits.h>
 
 # ifndef BUFFER_SIZE
 # define BUFFER_SIZE 63

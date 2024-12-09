@@ -6,7 +6,7 @@
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:32:11 by sojammal          #+#    #+#             */
-/*   Updated: 2024/12/09 11:02:32 by sojammal         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:17:25 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 static char *read_from_fd(int fd, char *buffer)
 {
-    char    tmp_holder[BUFFER_SIZE + 1];
+    char    *tmp_holder;
     char    *new_holder;
     int     reading_bytes;
 
-    while(1)
+    reading_bytes = 1;
+    tmp_holder = malloc(BUFFER_SIZE + 1);
+    if (!tmp_holder)
+        return (NULL);
+    while(reading_bytes != 0 && (ft_strchr(buffer, '\n') == NULL))
     {
         reading_bytes = read(fd, tmp_holder, BUFFER_SIZE);
         if (reading_bytes < 0)
@@ -32,28 +36,54 @@ static char *read_from_fd(int fd, char *buffer)
         if (ft_strchr(tmp_holder, '\n'))
             break;
     }
-    return (buffer);
+    return (free(tmp_holder), buffer);
 }
 static char *extract_line(char *buffer)
 {
     char    *line;
     char    *newline;
-
+    int     line_len;
+    int     i;
+    
+    i = 0;
     newline = ft_strchr(buffer, '\n');
     if (newline)
-        line = ft_substr(buffer, 0, newline - buffer + 1);
+        line_len = newline - buffer + 1;
     else
-        line = ft_substr(buffer, 0, ft_strlen(buffer));
+        line_len = ft_strlen(buffer);
+    line = malloc(line_len + 1);
+    if (!line)
+        return (NULL);
+    while (i < line_len)
+    {
+        line[i] = buffer[i];
+        i++;
+    }
+    line[line_len] = '\0';
     return (line);
 }
 static char *clean_up_buffer(char *buffer)
 {
     char    *newline;
     char    *remaining_buffer;
+    int     remaining_len;
+    int     i;
 
     newline = ft_strchr(buffer, '\n');
     if (newline)
-        remaining_buffer = ft_substr(newline + 1, 0, ft_strlen(newline + 1));
+    {
+        remaining_len = ft_strlen(newline + 1);
+        remaining_buffer = malloc(remaining_len + 1);
+        if (!remaining_buffer)
+            return (NULL);
+        i = 0;
+        while (newline[i + 1])
+        {
+            remaining_buffer[i] = newline[i + 1];
+            i++;
+        }
+        remaining_buffer[i] = '\0';
+    }
     else
         remaining_buffer = NULL;
     free(buffer);
@@ -64,7 +94,9 @@ char	*get_next_line(int fd)
     static char *buffer;
     char        *line;
 
-    if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+    if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
+        return (NULL);
+     if (read(fd, 0, 0) < 0)
         return (free(buffer), buffer = NULL, NULL);
     buffer = read_from_fd(fd, buffer);
     if (!buffer)
