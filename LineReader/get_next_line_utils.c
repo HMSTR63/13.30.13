@@ -6,7 +6,7 @@
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 23:20:07 by sojammal          #+#    #+#             */
-/*   Updated: 2024/12/09 20:46:16 by sojammal         ###   ########.fr       */
+/*   Updated: 2024/12/10 15:01:03 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,28 +126,4 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (NULL);
 }
-char	*ft_substr(const char *s, unsigned int start, size_t len)
-{
-	size_t	s_l;
-	size_t	i;
-	char	*sub;
 
-	if (!s)
-		return (NULL);
-	s_l = ft_strlen(s);
-	i = 0;
-	if (start >= s_l)
-		return (ft_strdup(""));
-	if (len > (s_l - start))
-		len = s_l - start;
-	sub = (char *)malloc(len + 1);
-	if (!sub)
-		return (NULL);
-	while (i < len)
-	{
-		sub[i] = s[start + 1];
-		i++;
-	}
-	sub[len] = '\0';
-	return (sub);
-}

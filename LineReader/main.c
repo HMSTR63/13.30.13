@@ -6,7 +6,7 @@
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 09:14:39 by aperez-b          #+#    #+#             */
-/*   Updated: 2024/12/09 21:10:44 by sojammal         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:50:05 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,14 @@
 #include <fcntl.h>
 #include <limits.h>
 
+void	f()
+{
+	system("leaks a.out");
+}
+
 int	main(void)
 {
+	atexit(f);
 	int		fd_1;
 	int		i;
 	char	*line[FOPEN_MAX];
