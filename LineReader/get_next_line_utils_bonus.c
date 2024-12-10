@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/08 23:20:07 by sojammal          #+#    #+#             */
-/*   Updated: 2024/12/10 15:25:27 by sojammal         ###   ########.fr       */
+/*   Created: 2024/12/10 15:20:25 by sojammal          #+#    #+#             */
+/*   Updated: 2024/12/10 15:24:20 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(const char *s1)
 {
@@ -50,7 +50,6 @@ char	*ft_strchr(const char *s, int c)
 	}
 	return (NULL);
 }
-
 char	*ft_strjoin(char *s1, char const *s2)
 {
 	char	*str;

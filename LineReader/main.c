@@ -6,36 +6,41 @@
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 09:14:39 by aperez-b          #+#    #+#             */
-/*   Updated: 2024/12/10 14:50:05 by sojammal         ###   ########.fr       */
+/*   Updated: 2024/12/10 17:50:35 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <limits.h>
+#include <stdlib.h>
 
-void	f()
-{
-	system("leaks a.out");
-}
+int main(void) {
+    int fd1;
+    int fd2;
+    int i = 1;
 
-int	main(void)
-{
-	atexit(f);
-	int		fd_1;
-	int		i;
-	char	*line[FOPEN_MAX];
 
-	i = 1;
-	fd_1 = open("test.txt", O_RDONLY);
-	while (1)
-	{
-		line[fd_1] = get_next_line(fd_1);
-		printf("Line %d for fd %d: %s\n", i, fd_1, line[fd_1]);
-		if (!line[fd_1])
-			return (0);
-		free(line[fd_1]);
-		i++;
-	}
+    fd1 = open("test.txt", O_RDONLY);
+    fd2 = open("test2.txt", O_RDONLY);
+
+    char *buf;
+
+    while ((buf = get_next_line(fd1))) {
+        printf("Line %d for fd %d: %s\n", i, fd1, buf);
+        free(buf);
+        i++;
+    }
+
+    printf("\n---------------------------\n");
+
+    while ((buf = get_next_line(fd2))) {
+        printf("Line %d for fd %d: %s\n", i, fd2, buf);
+        free(buf);
+        i++;
+    }
+
+    close(fd1);
+    close(fd2);
 }
