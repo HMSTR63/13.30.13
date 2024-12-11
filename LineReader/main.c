@@ -6,7 +6,7 @@
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 09:14:39 by aperez-b          #+#    #+#             */
-/*   Updated: 2024/12/10 17:50:35 by sojammal         ###   ########.fr       */
+/*   Updated: 2024/12/11 00:46:36 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <limits.h>
-#include <stdlib.h>
 
 int main(void) {
     int fd1;
@@ -28,19 +27,20 @@ int main(void) {
     char *buf;
 
     while ((buf = get_next_line(fd1))) {
-        printf("Line %d for fd %d: %s\n", i, fd1, buf);
+        printf("Line %d for fd %d: %s", i, fd1, buf);
         free(buf);
         i++;
     }
 
     printf("\n---------------------------\n");
-
+    i = 1;
     while ((buf = get_next_line(fd2))) {
-        printf("Line %d for fd %d: %s\n", i, fd2, buf);
+        printf("Line %d for fd %d: %s", i, fd2, buf);
         free(buf);
         i++;
     }
 
     close(fd1);
     close(fd2);
+    system("leaks a.out");
 }
