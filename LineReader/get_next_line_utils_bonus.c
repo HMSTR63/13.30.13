@@ -6,73 +6,89 @@
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 15:20:25 by sojammal          #+#    #+#             */
-/*   Updated: 2024/12/10 15:24:20 by sojammal         ###   ########.fr       */
+/*   Updated: 2024/12/12 00:19:43 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*ft_strdup(const char *s1)
+int	len_at_newline(char *line, int i)
 {
-	char	*dst;
-	size_t	i;
-
-	dst = (char *)malloc(ft_strlen(s1) + 1);
-	if (!dst)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		dst[i] = s1[i];
+	while (line[i] && line[i] != '\n')
 		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
 	return (i);
 }
-char	*ft_strchr(const char *s, int c)
+
+char	*ft_strdup(char *s)
 {
-	while (s && *s)
+	int		i;
+	char	*d;
+
+	i = 0;
+	d = malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (d == NULL)
+		return (0);
+	while (s[i] != '\0')
+	{
+		d[i] = s[i];
+		i++;
+	}
+	d[i] = '\0';
+	return (d);
+}
+
+size_t	ft_strlen(char *s)
+{
+	size_t	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strchr(char *s, int c)
+{
+	if (!s)
+		return (NULL);
+	while (*s)
 	{
 		if (*s == (char)c)
 			return ((char *)s);
 		s++;
 	}
+	if (c == '\0')
+		return ((char *)s);
 	return (NULL);
 }
-char	*ft_strjoin(char *s1, char const *s2)
+
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
 	size_t	i;
+	size_t	len;
 	size_t	j;
 
 	i = 0;
 	j = 0;
+	if (!s1 && !s2)
+		return (NULL);
 	if (!s1)
-		s1 = ft_strdup("");
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	len = ft_strlen(s1) + ft_strlen(s2);
+	str = malloc ((len + 1) * sizeof(char));
 	if (!str)
-		return (0);
+		return (NULL);
 	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		str[i++] = s2[j++];
-	}
-	str[i] = '\0';
-	free(s1);
+		str[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		str[j++] = s2[i++];
+	str[j] = '\0';
+	free (s1);
 	return (str);
 }
