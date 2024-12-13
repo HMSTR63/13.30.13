@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/10 15:20:25 by sojammal          #+#    #+#             */
-/*   Updated: 2024/12/12 00:19:43 by sojammal         ###   ########.fr       */
+/*   Created: 2024/12/08 23:20:07 by sojammal          #+#    #+#             */
+/*   Updated: 2024/12/13 23:37:37 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 int	len_at_newline(char *line, int i)
 {
@@ -26,7 +26,7 @@ char	*ft_strdup(char *s)
 
 	i = 0;
 	d = malloc((ft_strlen(s) + 1) * sizeof(char));
-	if (d == NULL)
+	if (!d)
 		return (0);
 	while (s[i] != '\0')
 	{
@@ -82,7 +82,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	len = ft_strlen(s1) + ft_strlen(s2);
 	str = malloc ((len + 1) * sizeof(char));
 	if (!str)
-		return (NULL);
+		return (free(s1), NULL);
 	while (s1[i])
 		str[j++] = s1[i++];
 	i = 0;
