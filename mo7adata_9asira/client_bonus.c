@@ -1,17 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 23:22:17 by sojammal          #+#    #+#             */
-/*   Updated: 2025/01/02 02:00:32 by sojammal         ###   ########.fr       */
+/*   Created: 2025/01/02 00:59:16 by sojammal          #+#    #+#             */
+/*   Updated: 2025/01/02 01:53:44 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
+void	ft_success(int sig)
+{
+	if (sig == SIGUSR1)
+		ft_putstr_fd("Message succesfully sent to the server\n", 1);
+	exit(0);
+}
 void	ft_send_signal(int pid, char h)
 {
 	int signal;
@@ -29,7 +35,7 @@ void	ft_send_signal(int pid, char h)
 			ft_putstr_fd("\e[033;0;31m→  Invalid PID. Signal sending failed. \e[0m\n", 2);
 			exit(1);
 		}
-		usleep(100);
+		usleep(500);
 		bit++;
 	}
 }
@@ -67,13 +73,14 @@ int	main(int ac, char **av)
 		pid = validate_pid(av[1]);
 		if (pid != 0)
 		{
-			ft_putstr_fd("\e[033;0;32m→  Valid PID. Starting message transmission. \e[0m\n", 1);
+			signal(SIGUSR1, ft_success);
 			while (av[2][i])
 			{
-				ft_send_signal(pid, av[2][i]);
-				i++;
+				ft_send_signal(pid, av[2][i++]);
 			}
 			ft_send_signal(pid, '\0');
+			while (1)
+				pause();
 		}
 	}
 	else
@@ -81,4 +88,5 @@ int	main(int ac, char **av)
 		ft_putstr_fd("\e[033;0;31m→  Incorrect number of arguments or empty message. \e[0m\n", 2);
 		ft_putstr_fd("\e[033;0;35m→  Usage: ./client [PID] [MESSAGE] \e[0m\n", 2);
 	}
+	return (0);
 }

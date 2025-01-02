@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/30 23:27:33 by sojammal          #+#    #+#             */
-/*   Updated: 2025/01/02 01:02:33 by sojammal         ###   ########.fr       */
+/*   Created: 2025/01/02 00:51:07 by sojammal          #+#    #+#             */
+/*   Updated: 2025/01/02 01:26:44 by sojammal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_btoa(int sig, siginfo_t *info, void *context)
 {
-	static int	pid;
-	static int	p_bit;
-	static char	h;
+	static unsigned char	h;
+	static int	            pid;
+	static int	            p_bit;
 
 	(void)context;
 	if (pid != info->si_pid)
@@ -30,7 +30,10 @@ void	ft_btoa(int sig, siginfo_t *info, void *context)
 	p_bit++;
 	if (p_bit == 8)
 	{
-		ft_putchar_fd(h, 1);
+        if (h == 255)
+            kill(info->si_pid, SIGUSR1);
+        else
+		    ft_putchar_fd(h, 1);
 		h = 0;
 		p_bit = 0;
 	}
